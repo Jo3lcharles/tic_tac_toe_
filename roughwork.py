@@ -1,69 +1,7 @@
-def separate_numbers(nested_list:list[list[int]]) -> dict[str,dict[str, list[int]]]:
-    #make sure the input is a list
-    assert isinstance(nested_list,list), "invalid argument"
-    #ensure it has an inner loop and the inner loop contains intergers
-    for list_ in nested_list:
-        if not isinstance(list_, list):
-            raise AssertionError("invalid argument")
-        for element in list_:
-            if not isinstance(element, int):
-                raise AssertionError("invalid argument")
-            
-    outer_dict = {}   
-    for i , inner_list in enumerate(nested_list):
-        odd_list = [x for x in inner_list if x%2 != 0]
-        even_list = [x for x in inner_list if x%2 == 0]
-        inner_dict = {"list" : inner_list , "odd" : odd_list, "even" : even_list}
-        outer_dict[f"list_number_{i}"] = inner_dict
-
-    return outer_dict
-
-
-
-from statistics import mean
-
-def co_efficient(list_1: list[int], list_2:list[int]):
-    avg_ref = mean(list_1)
-    avg_list = mean(list_2)
-    numerator = 0
-    denominator1 = 0
-    denominator2 = 0
-
-    for a,b in zip(list_1 , list_2):
-        difference1 = a - avg_ref
-        difference2 = b - avg_list
-        numerator+=(difference1 * difference2)
-        denominator1 +=difference1**2
-        denominator2 += difference2**2
-
-    denominator = (denominator1 * denominator2)** 0.5
-
-    if denominator == 0:
-        raise AssertionError("denominator cant be 0")
-    else:
-        co_efficient = numerator/ denominator
-
-    return co_efficient
-
-
-def highest_col(ref:list[int], nested_list: list[list[int]]):
-    compare = []
-    for list_ in nested_list:
-        if len(list_) != len(ref):
-            raise AssertionError(" inner list must be of the same length as the reference list")
-    for sublist in nested_list:
-        co_efficient_ = co_efficient(ref, sublist)
-
-        compare.append(co_efficient_)
-    return (nested_list[compare.index(max(compare))] , round(max(compare), 4))
-
-
+import doctest
 
 def initialize_board(n: int) -> list[list[str]]:
     return [[" "]*n for i in range(n)]
-    for i in range(n):
-        result.append([' '] *n)
-    return result
 
 # This function is provided, and you can leave it as is.
 def print_board(board: list[list[str]]) -> None:
@@ -169,15 +107,7 @@ def is_board_full(board: list[list[str]]) -> bool:
     Check if the game board is full, indicating a tie if there is no winner.
     """
     return all(cell != " " for row in board for cell in row )
-    flat_board = [j for i in board for j in i ]
-    return "".join(flat_board).isalpha()
 
-    for row in board:
-        for col in row:
-            if col == " ":
-                return False
-    return True   
-    
 
 # This function is provided, and you can leave it as is.
 def play_tic_tac_toe() -> None:
@@ -235,7 +165,7 @@ def play_tic_tac_toe() -> None:
                 print(f"Player {player_names[current_player]} wins!")
                 continue_game = False
 
-            # Check for a tie
+            # Check for a tie.
             if is_board_full(board):
                 print_board(board)
                 print("It's a tie!")
@@ -247,14 +177,12 @@ def play_tic_tac_toe() -> None:
             print("Cell is already occupied. Choose another cell.")
 
 if __name__ == "__main__":
-    pass
-    # Usage:
-    # Uncomment the line below to start playing the game
-    #play_tic_tac_toe()
-    # doctest.testmod()
+    #Usage:
+    #Uncomment the line below to start playing the game
+    play_tic_tac_toe()
+    doctest.testmod()
 
-s = "sld"
-print(s[:-1])
+#ignore this 
 
 
 
